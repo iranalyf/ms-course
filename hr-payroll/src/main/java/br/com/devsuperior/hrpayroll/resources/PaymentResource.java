@@ -2,6 +2,7 @@ package br.com.devsuperior.hrpayroll.resources;
 
 import br.com.devsuperior.hrpayroll.services.PaymentService;
 import lombok.AllArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

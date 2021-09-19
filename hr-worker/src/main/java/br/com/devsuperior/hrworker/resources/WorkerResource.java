@@ -4,6 +4,8 @@ import br.com.devsuperior.hrworker.entities.Worker;
 import br.com.devsuperior.hrworker.repositories.WorkerRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +17,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/workers")
 @AllArgsConstructor
+@Slf4j
 public class WorkerResource {
 
     private WorkerRepository workerRepository;
+
+    private Environment env;
 
     @GetMapping
     public ResponseEntity<?> findAll(){
@@ -26,6 +31,7 @@ public class WorkerResource {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
+        log.info("PORT=" + env.getProperty("local.server.port"));
         Optional<Worker> byId = workerRepository.findById(id);
         return byId.isPresent() ? ResponseEntity.ok(byId.get()) : ResponseEntity.notFound().build();
     }
